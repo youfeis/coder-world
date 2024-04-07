@@ -2,11 +2,27 @@
 
 'use client';
 
-import React from 'react';
 import { Engine, Scene } from 'react-babylonjs';
+import React, { useEffect } from 'react';
 import { Vector3, HemisphericLight, MeshBuilder, ArcRotateCamera } from '@babylonjs/core';
 
 const BabylonCanvas: React.FC = () => {
+
+  const preventScroll = (event: WheelEvent) => {
+    event.preventDefault();
+  };
+
+  useEffect(() => {
+    const canvas = document.getElementById('babylon-canvas');
+    // Add event listener to disable scroll
+    canvas?.addEventListener('wheel', preventScroll, { passive: false });
+
+    // Cleanup function to remove event listener
+    return () => {
+      canvas?.removeEventListener('wheel', preventScroll);
+    };
+  }, []);
+
   return (
     <Engine antialias={true} adaptToDeviceRatio={true} canvasId="babylon-canvas">
       <Scene>
