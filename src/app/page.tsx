@@ -11,6 +11,11 @@ const BabylonCanvasWithNoSSR
   ssr: false,
 });
 
+const AblyPing
+  = dynamic(() => import("~/app/_components/ably-ping"), {
+  ssr: false,
+});
+
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
   const session = await getServerAuthSession();
@@ -38,7 +43,7 @@ export default async function Home() {
             </Link>
           </div>
         </div>
-
+        <AblyPing />
         <BabylonCanvasWithNoSSR />
         <CrudShowcase />
       </div>
